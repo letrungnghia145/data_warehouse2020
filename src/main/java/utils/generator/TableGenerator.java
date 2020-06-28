@@ -21,7 +21,6 @@ public class TableGenerator {
 		stringBuilder.append("PRIMARY KEY (`" + fieldsName[0] + "`)" + createUniqueContrains(fieldsWithUnique)
 				+ ")  ENGINE=InnoDB;");
 		String sql = stringBuilder.toString();
-		System.out.println(stringBuilder);
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		int result = preparedStatement.executeUpdate();
 		if (result == 0)

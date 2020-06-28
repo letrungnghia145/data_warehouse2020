@@ -53,15 +53,6 @@ public class XLSXReader implements Reader {
 		return students;
 	}
 
-//	private static Iterator<Row> getRowsFromExel(File file) throws IOException {
-//		InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
-//		Workbook workbook = new XSSFWorkbook(inputStream);
-//		Sheet sheet = workbook.getSheetAt(0);
-//
-//		Iterator<Row> rows = sheet.rowIterator();
-//		return rows;
-//	}
-
 	private static void setProps(Cell cell, Student student) {
 		int propsIndex = cell.getColumnIndex();
 		Object value = getValue(cell);

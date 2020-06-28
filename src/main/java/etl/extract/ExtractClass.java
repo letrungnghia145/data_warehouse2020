@@ -8,13 +8,12 @@ import java.sql.SQLException;
 import java.util.List;
 
 import connecttion.database.DatabaseConnector;
+import contants.ActionType;
 import contants.Status;
 import contants.Strategy;
 import model.Configuration;
 import model.Log;
 import model.Student;
-import utils.enviroment.Enviroment;
-import utils.enviroment.EnviromentImpl;
 import utils.generator.TableGenerator;
 import utils.loader.ConfigsLoader;
 import utils.loader.LogsLoader;
@@ -33,25 +32,20 @@ public class ExtractClass {
 			File file = new File(log.getSource_dir() + File.separator + log.getSource_name());
 			List<Student> students = reader.readData(file);
 			for (Student student : students) {
-				System.out.println(student);
-				boolean isInserted = insertToStaging(student, connection);
-				if (isInserted) {
-					Logger.updateStatusLog(Status.TR, log.getId_log());
-				}
+				insertToStaging(student, connection);
+//				if (isInserted) {
+				Logger.updateCurrentAction(ActionType.EXTRACT, log.getId_log());
+				Logger.updateStatusLog(Status.TR, log.getId_log());
+//					return true;
+//				}
 			}
 		}
+//		return false;
 	}
 
-	public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
-		List<Configuration> configs = ConfigsLoader.loadAllConfigs();
-		for (Configuration config : configs) {
-			loadLocalToStaging(config);
-		}
-	}
-
-	private static boolean insertToStaging(Student student, Connection connection) throws SQLException {
+	private static void insertToStaging(Student student, Connection connection) throws SQLException {
 		try {
-			String sql = "INSERT INTO staging VALUES(?,?,?,?,?,?,?,?,?,?,?);";
+			String sql = "INSERT INTO staging VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setInt(1, student.getNum());
 			preparedStatement.setString(2, student.getId());
@@ -66,8 +60,16 @@ public class ExtractClass {
 			preparedStatement.setString(11, student.getNote());
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			return false;
+//			return false;
 		}
-		return true;
+//		return true;
+	}
+
+	public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
+		List<Configuration> configs = ConfigsLoader.loadAllConfigs();
+		for (Configuration config : configs) {
+//			System.out.println(loadLocalToStaging(config));
+			loadLocalToStaging(config);
+		}
 	}
 }

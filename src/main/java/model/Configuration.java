@@ -115,13 +115,6 @@ public class Configuration {
 		this.status = status;
 	}
 
-	@Override
-	public String toString() {
-		return "Configuration [id=" + id_config + ", hostname=" + hostname + ", port=" + port + ", username=" + username
-				+ ", password=" + password + ", remote_dir=" + remote_dir + ", local_dir=" + local_dir
-				+ ", column_list=" + column_list + ", delimiter=" + delimiter + ", status=" + status + "]";
-	}
-
 	public String getColumn_datatype() {
 		return column_datatype;
 	}
@@ -136,5 +129,13 @@ public class Configuration {
 
 	public void setColumn_unique(String column_unique) {
 		this.column_unique = column_unique;
+	}
+
+	@Override
+	public String toString() {
+		return "Configuration [id_config=" + id_config + ", hostname=" + hostname + ", port=" + port + ", username="
+				+ username + ", password=" + password + ", remote_dir=" + remote_dir + ", local_dir=" + local_dir
+				+ ", column_list=" + column_list + ", column_datatype=" + column_datatype + ", column_unique="
+				+ column_unique + ", delimiter=" + delimiter + ", status=" + status + "]";
 	}
 }
