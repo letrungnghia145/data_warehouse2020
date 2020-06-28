@@ -6,10 +6,12 @@ import java.sql.SQLException;
 
 import contants.Strategy;
 import utils.enviroment.Enviroment;
+import utils.enviroment.EnviromentImpl;
 
 public class DatabaseConnector {
+	private static Enviroment enviroment = new EnviromentImpl();
 
-	public static Connection getConnection(Enviroment enviroment, Strategy strategy) throws ClassNotFoundException, SQLException {
+	public static Connection getConnection(Strategy strategy) throws ClassNotFoundException, SQLException {
 		String driver = enviroment.getStringProp("driver");
 		String url = enviroment.getStringProp(strategy.name().toLowerCase());
 		String user = enviroment.getStringProp("username");

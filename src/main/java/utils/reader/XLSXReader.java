@@ -23,32 +23,33 @@ import model.Student;
 
 public class XLSXReader implements Reader {
 
-	public List<Student> readData(File[] files) throws IOException {
+	public List<Student> readData(File file) throws IOException {
 		List<Student> students = new ArrayList<Student>();
-		for (File file : files) {
-			InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
-			Workbook workbook = new XSSFWorkbook(inputStream);
-			Sheet sheet = workbook.getSheetAt(0);
+		InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+		Workbook workbook = new XSSFWorkbook(inputStream);
+		Sheet sheet = workbook.getSheetAt(0);
 
-			Iterator<Row> rows = sheet.rowIterator();
+		Iterator<Row> rows = sheet.rowIterator();
 //			Iterator<Row> rows = getRowsFromExel(path);
-			while (rows.hasNext()) {
-				Row row = rows.next();
-				if (row.getRowNum() == 0) {
-					continue;
-				}
-				Iterator<Cell> cells = row.cellIterator();
-				Student student = new Student();
-				while (cells.hasNext()) {
-					Cell cell = cells.next();
-//					int num = students.size() + 1;
-					setProps(cell, student);
-				}
-				students.add(student);
+		while (rows.hasNext()) {
+			Row row = rows.next();
+			if (row.getRowNum() == 0) {
+				continue;
 			}
-			workbook.close();
-			inputStream.close();
+			Iterator<Cell> cells = row.cellIterator();
+			Student student = new Student();
+			while (cells.hasNext()) {
+				Cell cell = cells.next();
+//					int num = students.size() + 1;
+				setProps(cell, student);
+			}
+			if (!standardizedData(student)) {
+				continue;
+			}
+			students.add(student);
 		}
+		workbook.close();
+		inputStream.close();
 		return students;
 	}
 
@@ -133,16 +134,20 @@ public class XLSXReader implements Reader {
 		}
 		return value;
 	}
-	private boolean standardizedData(Student student, ArrayList<Student> students) {
-		return false;
+
+	private boolean standardizedData(Student student) {
+		if (student.getNum()==0||student.getId()==null) {
+			return false;
+		}
+		return true;
 	}
+
 	public static void main(String[] args) throws IOException {
 		long start = System.currentTimeMillis();
 		Reader reader = new XLSXReader();
-		File dir = new File("/data");
-		File[] files = dir.listFiles();
-		List<Student> readData = reader.readData(files);
-		for (Student student : readData) {
+		File dir = new File("data/sinhvien_chieu_nhom11.xlsx");
+		List<Student> data = reader.readData(dir);
+		for (Student student : data) {
 			System.out.println(student);
 		}
 		long end = System.currentTimeMillis();

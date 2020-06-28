@@ -5,21 +5,18 @@ import java.util.Date;
 public class Log {
 	private int id_log;
 	private int id_config;
-	private String source;
+	private String source_dir;
+	private String source_name;
 	private Date time_insert;
-	private int row_count;
-	private String current_action;
 	private String status;
 
-	public Log(int id_log, int id_config, String source, Date time_insert, int row_count, String current_action,
-			String status) {
+	public Log(int id_log, int id_config, String source_dir, String source_name, Date time_insert, String status) {
 		super();
 		this.id_log = id_log;
 		this.id_config = id_config;
-		this.source = source;
+		this.source_dir = source_dir;
+		this.source_name = source_name;
 		this.time_insert = time_insert;
-		this.row_count = row_count;
-		this.current_action = current_action;
 		this.status = status;
 	}
 
@@ -43,12 +40,20 @@ public class Log {
 		this.id_config = id_config;
 	}
 
-	public String getSource() {
-		return source;
+	public String getSource_dir() {
+		return source_dir;
 	}
 
-	public void setSource(String source) {
-		this.source = source;
+	public void setSource_dir(String source_dir) {
+		this.source_dir = source_dir;
+	}
+
+	public String getSource_name() {
+		return source_name;
+	}
+
+	public void setSource_name(String source_name) {
+		this.source_name = source_name;
 	}
 
 	public Date getTime_insert() {
@@ -57,22 +62,6 @@ public class Log {
 
 	public void setTime_insert(Date time_insert) {
 		this.time_insert = time_insert;
-	}
-
-	public int getRow_count() {
-		return row_count;
-	}
-
-	public void setRow_count(int row_count) {
-		this.row_count = row_count;
-	}
-
-	public String getCurrent_action() {
-		return current_action;
-	}
-
-	public void setCurrent_action(String current_action) {
-		this.current_action = current_action;
 	}
 
 	public String getStatus() {
@@ -85,8 +74,7 @@ public class Log {
 
 	@Override
 	public String toString() {
-		return "Log [id_log=" + id_log + ", id_config=" + id_config + ", source=" + source + ", time_insert="
-				+ time_insert + ", row_count=" + row_count + ", current_action=" + current_action + ", status=" + status
-				+ "]";
+		return "Log [id_log=" + id_log + ", id_config=" + id_config + ", source_dir=" + source_dir + ", source_name="
+				+ source_name + ", time_insert=" + time_insert + ", status=" + status + "]";
 	}
 }

@@ -18,5 +18,6 @@ public interface Reader {
 	static final int EMAIL = 8;
 	static final int QUEQUAN = 9;
 	static final int GHICHU = 10;
-	public List<Student> readData(File[] files) throws IOException;
+
+	public List<Student> readData(File file) throws IOException;
 }

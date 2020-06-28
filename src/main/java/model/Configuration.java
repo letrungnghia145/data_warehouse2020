@@ -10,12 +10,13 @@ public class Configuration {
 	private String local_dir;
 	private String column_list;
 	private String column_datatype;
+	private String column_unique;
 	private String delimiter;
 	private String status;
 
 	public Configuration(int id_config, String hostname, int port, String username, String password, String remote_dir,
-			String local_dir, String column_list, String column_datatype, String delimiter, String status) {
-		super();
+			String local_dir, String column_list, String column_datatype, String column_unique, String delimiter,
+			String status) {
 		this.id_config = id_config;
 		this.hostname = hostname;
 		this.port = port;
@@ -24,7 +25,8 @@ public class Configuration {
 		this.remote_dir = remote_dir;
 		this.local_dir = local_dir;
 		this.column_list = column_list;
-		this.setColumn_datatype(column_datatype);
+		this.column_datatype = column_datatype;
+		this.setColumn_unique(column_unique);
 		this.delimiter = delimiter;
 		this.status = status;
 	}
@@ -126,5 +128,13 @@ public class Configuration {
 
 	public void setColumn_datatype(String column_datatype) {
 		this.column_datatype = column_datatype;
+	}
+
+	public String getColumn_unique() {
+		return column_unique;
+	}
+
+	public void setColumn_unique(String column_unique) {
+		this.column_unique = column_unique;
 	}
 }
