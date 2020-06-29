@@ -26,7 +26,7 @@ public class ExtractClass {
 			throws ClassNotFoundException, SQLException, IOException {
 		Log log = LogsLoader.loadLogWithStatus(Status.EXTRACT_READY, configuration.getId_config());
 		Connection connection = DatabaseConnector.getConnection(Strategy.DB_STAGING);
-		boolean isGennerated = TableGenerator.gennerate(configuration, connection);
+		boolean isGennerated = TableGenerator.generate(configuration, connection);
 		if (isGennerated) {
 			Reader reader = new XLSXReader();
 			File file = new File(log.getSource_dir() + File.separator + log.getSource_name());

@@ -9,14 +9,16 @@ public class Configuration {
 	private String remote_dir;
 	private String local_dir;
 	private String column_list;
+	private String columnToWarehouse;
 	private String column_datatype;
 	private String column_unique;
 	private String delimiter;
 	private String status;
 
 	public Configuration(int id_config, String hostname, int port, String username, String password, String remote_dir,
-			String local_dir, String column_list, String column_datatype, String column_unique, String delimiter,
-			String status) {
+			String local_dir, String column_list, String columnToWarehouse, String column_datatype,
+			String column_unique, String delimiter, String status) {
+		super();
 		this.id_config = id_config;
 		this.hostname = hostname;
 		this.port = port;
@@ -25,8 +27,9 @@ public class Configuration {
 		this.remote_dir = remote_dir;
 		this.local_dir = local_dir;
 		this.column_list = column_list;
+		this.columnToWarehouse = columnToWarehouse;
 		this.column_datatype = column_datatype;
-		this.setColumn_unique(column_unique);
+		this.column_unique = column_unique;
 		this.delimiter = delimiter;
 		this.status = status;
 	}
@@ -99,20 +102,12 @@ public class Configuration {
 		this.column_list = column_list;
 	}
 
-	public String getDelimiter() {
-		return delimiter;
+	public String getColumnToWarehouse() {
+		return columnToWarehouse;
 	}
 
-	public void setDelimiter(String delimiter) {
-		this.delimiter = delimiter;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
+	public void setColumnToWarehouse(String columnToWarehouse) {
+		this.columnToWarehouse = columnToWarehouse;
 	}
 
 	public String getColumn_datatype() {
@@ -131,11 +126,28 @@ public class Configuration {
 		this.column_unique = column_unique;
 	}
 
+	public String getDelimiter() {
+		return delimiter;
+	}
+
+	public void setDelimiter(String delimiter) {
+		this.delimiter = delimiter;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	@Override
 	public String toString() {
 		return "Configuration [id_config=" + id_config + ", hostname=" + hostname + ", port=" + port + ", username="
 				+ username + ", password=" + password + ", remote_dir=" + remote_dir + ", local_dir=" + local_dir
-				+ ", column_list=" + column_list + ", column_datatype=" + column_datatype + ", column_unique="
-				+ column_unique + ", delimiter=" + delimiter + ", status=" + status + "]";
+				+ ", column_list=" + column_list + ", columnToWarehouse=" + columnToWarehouse + ", column_datatype="
+				+ column_datatype + ", column_unique=" + column_unique + ", delimiter=" + delimiter + ", status="
+				+ status + "]";
 	}
 }
