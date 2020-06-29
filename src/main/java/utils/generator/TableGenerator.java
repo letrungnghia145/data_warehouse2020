@@ -11,16 +11,8 @@ public class TableGenerator {
 		String[] fieldsName = config.getColumn_list().trim().split(",");
 		String[] datatype = config.getColumn_datatype().split(",");
 		String[] fieldsWithUnique = config.getColumn_unique().split(",");
-		return generate(null, fieldsName, datatype, fieldsWithUnique, connection);
-	}
-
-	public static boolean generate(String tablename, String[] fieldsName, String[] datatype, String[] fieldsWithUnique,
-			Connection connection) throws SQLException {
-//		String[] fieldsName = config.getColumn_list().trim().split(",");
-//		String[] datatype = config.getColumn_datatype().split(",");
-//		String[] fieldsWithUnique = config.getColumn_unique().split(",");
 		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append("CREATE TABLE IF NOT EXISTS " + tablename + " (\n");
+		stringBuilder.append("CREATE TABLE IF NOT EXISTS `db_staging`.`staging`(\n");
 
 		for (int i = 0; i < fieldsName.length; i++) {
 			stringBuilder.append("\t`" + fieldsName[i] + "`\t" + datatype[i] + ",\n");
@@ -35,6 +27,28 @@ public class TableGenerator {
 			return true;
 		return false;
 	}
+
+//	public static boolean generate(String tablename, String[] fieldsName, String[] datatype,
+//			String[] fieldsWithUnique) {
+////		String[] fieldsName = config.getColumn_list().trim().split(",");
+////		String[] datatype = config.getColumn_datatype().split(",");
+////		String[] fieldsWithUnique = config.getColumn_unique().split(",");
+//		StringBuilder stringBuilder = new StringBuilder();
+//		stringBuilder.append("CREATE TABLE IF NOT EXISTS `db_staging`.`staging`(\n");
+//
+//		for (int i = 0; i < fieldsName.length; i++) {
+//			stringBuilder.append("\t`" + fieldsName[i] + "`\t" + datatype[i] + ",\n");
+//		}
+//
+//		stringBuilder.append("PRIMARY KEY (`" + fieldsName[0] + "`)" + createUniqueContrains(fieldsWithUnique)
+//				+ ")  ENGINE=InnoDB;");
+//		String sql = stringBuilder.toString();
+//		PreparedStatement preparedStatement = connection.prepareStatement(sql);
+//		int result = preparedStatement.executeUpdate();
+//		if (result == 0)
+//			return true;
+//		return false;
+//	}
 
 	private static StringBuilder createUniqueContrains(String[] fields) {
 		StringBuilder stringBuilder = new StringBuilder();
