@@ -24,7 +24,7 @@ import utils.reader.XLSXReader;
 public class ExtractClass {
 	public static void loadLocalToStaging(Configuration configuration)
 			throws ClassNotFoundException, SQLException, IOException {
-		Log log = LogsLoader.loadLogWithStatus(Status.ER, configuration.getId_config());
+		Log log = LogsLoader.loadLogWithStatus(Status.EXTRACT_READY, configuration.getId_config());
 		Connection connection = DatabaseConnector.getConnection(Strategy.DB_STAGING);
 		boolean isGennerated = TableGenerator.gennerate(configuration, connection);
 		if (isGennerated) {
@@ -35,7 +35,7 @@ public class ExtractClass {
 				insertToStaging(student, connection);
 //				if (isInserted) {
 				Logger.updateCurrentAction(ActionType.EXTRACT, log.getId_log());
-				Logger.updateStatusLog(Status.TR, log.getId_log());
+				Logger.updateStatusLog(Status.TRANSFORM_READY, log.getId_log());
 //					return true;
 //				}
 			}

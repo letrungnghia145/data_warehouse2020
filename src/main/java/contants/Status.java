@@ -1,5 +1,5 @@
 package contants;
 
 public enum Status {
-	ER,TR
+	EXTRACT_READY, TRANSFORM_READY, LOAD_READY
 }

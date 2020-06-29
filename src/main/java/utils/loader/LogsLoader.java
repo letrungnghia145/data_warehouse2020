@@ -8,11 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import connecttion.database.DatabaseConnector;
+import connecttion.database.DatabaseUtils;
 import contants.Status;
 import contants.Strategy;
 import model.Log;
-import utils.enviroment.Enviroment;
-import utils.enviroment.EnviromentImpl;
 
 public class LogsLoader {
 	public static List<Log> loadAllLogsWithStatus(Status status, int idConfig)
@@ -34,11 +33,11 @@ public class LogsLoader {
 			log.setStatus(rs.getString("status"));
 			logs.add(log);
 		}
+		DatabaseUtils.closeConnectionQuietly(connection);
 		return logs;
 	}
 
 	public static Log loadLogWithStatus(Status status, int idConfig) throws ClassNotFoundException, SQLException {
-		List<Log> logs = new ArrayList<Log>();
 		Connection connection = DatabaseConnector.getConnection(Strategy.DB_CONTROL);
 		String sql = "SELECT * FROM log WHERE status = ? and id_config = ? LIMIT 1";
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -53,13 +52,10 @@ public class LogsLoader {
 			log.setSource_name(rs.getString("source_name"));
 			log.setTime_insert(rs.getDate("time_insert"));
 			log.setStatus(rs.getString("status"));
+			DatabaseUtils.closeConnectionQuietly(connection);
 			return log;
 		}
+		DatabaseUtils.closeConnectionQuietly(connection);
 		return null;
-	}
-
-	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-		Log log = loadLogWithStatus(Status.ER, 1);
-		System.out.println(log);
 	}
 }

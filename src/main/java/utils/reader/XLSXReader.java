@@ -1,7 +1,6 @@
 package utils.reader;
 
 import java.io.BufferedInputStream;
-import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -127,7 +126,7 @@ public class XLSXReader implements Reader {
 	}
 
 	private boolean standardizedData(Student student) {
-		if (student.getNum()==0||student.getId()==null) {
+		if (student.getNum() == 0 || student.getId() == null) {
 			return false;
 		}
 		return true;

@@ -8,10 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import connecttion.database.DatabaseConnector;
+import connecttion.database.DatabaseUtils;
 import contants.Strategy;
 import model.Configuration;
-import utils.enviroment.Enviroment;
-import utils.enviroment.EnviromentImpl;
 
 public class ConfigsLoader {
 	public static List<Configuration> loadAllConfigs() throws ClassNotFoundException, SQLException {
@@ -36,13 +35,7 @@ public class ConfigsLoader {
 			configuration.setUsername(rs.getString("username"));
 			configurations.add(configuration);
 		}
+		DatabaseUtils.closeConnectionQuietly(connection);
 		return configurations;
-	}
-
-	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-		List<Configuration> configurations = ConfigsLoader.loadAllConfigs();
-		for (Configuration configuration : configurations) {
-			System.out.println(configuration);
-		}
 	}
 }

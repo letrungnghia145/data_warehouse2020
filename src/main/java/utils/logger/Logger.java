@@ -22,6 +22,7 @@ public class Logger {
 		statement.setString(1, status.name());
 		statement.setInt(2, idLog);
 		statement.executeUpdate();
+		DatabaseUtils.closeConnectionQuietly(connection);
 	};
 
 	public static void updateCurrentAction(ActionType action, int idLog) throws ClassNotFoundException, SQLException {
@@ -31,6 +32,7 @@ public class Logger {
 		statement.setString(1, action.name());
 		statement.setInt(2, idLog);
 		statement.executeUpdate();
+		DatabaseUtils.closeConnectionQuietly(connection);
 	}
 
 	public static void downloadStatusLogging(Configuration configuration) throws ClassNotFoundException, SQLException {
@@ -44,7 +46,7 @@ public class Logger {
 			log.setSource_name(files[i].getName());
 			log.setTime_insert(new Date(System.currentTimeMillis()));
 			log.setCurrent_action(ActionType.DOWNLOAD.name());
-			log.setStatus(Status.ER.name());
+			log.setStatus(Status.EXTRACT_READY.name());
 			insertLog(log);
 		}
 	}
@@ -70,9 +72,5 @@ public class Logger {
 		} finally {
 			DatabaseUtils.closeConnectionQuietly(connection);
 		}
-	}
-
-	public static void main(String[] args) {
-		System.out.println(new Date(System.currentTimeMillis()));
 	}
 }
